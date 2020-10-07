@@ -1,0 +1,62 @@
+public void takeNotes() {
+        JDialog noteFrame = new JDialog((Frame) null);
+        JLabel title = new JLabel("Your Notes");
+        JPanel panel = new JPanel();
+
+        noteFrame.setPreferredSize(new Dimension(200, 500));
+        panel.setSize(100, 300);
+        panel.setVisible(true);
+
+        JButton cancel = new JButton("I'm done taking / look at my notes!");
+
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        Player p = currentPlayer;
+
+        // Actual note taking
+        StringBuilder notes = new StringBuilder();
+        notes.append("<html>");
+        notes.append(p.getNotes());
+        notes.append("</html>");
+
+        JLabel prevNotes = new JLabel(notes.toString(), SwingConstants.CENTER);
+
+        textField = new JTextField("Please enter your notes here!", 15);
+
+
+        panel.add(prevNotes);
+        panel.add(textField);
+        panel.add(title);
+        panel.add(cancel);
+
+        // finalising frames
+        noteFrame.setAlwaysOnTop(true);
+        noteFrame.setContentPane(panel);
+        noteFrame.pack();
+        noteFrame.setLocationRelativeTo(null);
+        noteFrame.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        noteFrame.setVisible(true);
+
+
+        // put action listeners here
+        final boolean[] actionPerformed = {false};
+        while(!actionPerformed[0]) {
+            textField.addActionListener(e -> {
+                String notesWritten = textField.getText();
+                p.setNotes(notesWritten);
+                textField.setText("");
+
+                StringBuilder sb = new StringBuilder();
+                sb.append("<html>");
+                sb.append(p.getNotes());
+                sb.append("</html>");
+                prevNotes.setText(sb.toString());
+                this.action = "View Notes";
+            });
+        }
+
+        cancel.addActionListener(e -> {
+            noteFrame.dispose();
+            actionPerformed[0] = true;
+        });
+}

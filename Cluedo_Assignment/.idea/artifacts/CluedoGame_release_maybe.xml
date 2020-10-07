@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CluedoGame_release_maybe">
+    <output-path>$PROJECT_DIR$/classes/artifacts/CluedoGame_release_maybe</output-path>
+    <root id="archive" name="CluedoGame_release_maybe.jar">
+      <element id="dir-copy" path="$PROJECT_DIR$" />
+    </root>
+  </artifact>
+</component>
